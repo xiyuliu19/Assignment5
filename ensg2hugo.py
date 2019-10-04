@@ -26,9 +26,9 @@ Your_file = sys.argv[-2] if sys.argv[-1][0] == '>' else sys.argv[-1]
 for line in fileinput.input(Your_file):
     text_in_columns = re.split(',',line)
     if text_in_columns[0] == '""':
-       print line[:-1]
+       print ','.join(text_in_columns)[:-1]
        continue
     id = re.split('\.', text_in_columns[column_number -1])[0].strip('"')
     if id in Lookup_geneID:
-       text_in_columns[4]=re.sub('\n','',text_in_columns[4].rstrip());
-       print text_in_columns[0] + "," + '"' +  Lookup_geneID[id] + '"' + "," + text_in_columns[2] + "," + text_in_columns[3] + "," + text_in_columns[4]
+       text_in_columns[-1]=re.sub('\n','',text_in_columns[-1].rstrip());
+       print ','.join(text_in_columns[:column_number-1]) + "," + '"' + Lookup_geneID[id] + '"' + "," + ','.join(text_in_columns[column_number:])
