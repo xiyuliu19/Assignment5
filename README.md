@@ -4,13 +4,12 @@
 1. Create a new directory called "Assignment5" in the home directory `mkdir Assignment5`  
 2. `cd Assignment5`  
 3. To get Homo_sapiens.GRCh37.75.gtf:<br>
-As this file is too large, you can use **curl** to get it. `curl -O http://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz`
-4. To get the unit test, you can use **wget** or **curl** to get it.  
-`wget https://github.com/davcraig75/unit/expres.anal.csv`  
+As this file is too large, users can use **curl** to get it. `curl -O http://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz`
+4. Users can use **wget** or **curl** to get the file they want to work with. Here, take the unit test for an example, the command line is `wget https://github.com/davcraig75/unit/expres.anal.csv`  
 or `curl -O https://github.com/davcraig75/unit/expres.anal.csv`  
-Here, you will have these two files in the Assignment5 directory. You can check it by type `ls -l` command.  
+Here, users will have these two files in the Assignment5 directory. Users can check it by type `ls -l` command.  
 ***
-5. `vim ensg2hugo.py`  
+### Create script `vim ensg2hugo.py`  
 ```python
 #!/usr/bin/python
 import sys
@@ -47,12 +46,11 @@ for line in fileinput.input(Your_file):
        text_in_columns[-1]=re.sub('\n','',text_in_columns[-1].rstrip());
        print ','.join(text_in_columns[:column_number-1]) + "," + '"' + Lookup_geneID[id] + '"' + "," + ','.join(text_in_columns[column_number:])
 ```
-6. `chmod 755 ensg2hugo.py`  
-7. Now, I can test this program by the unit test file. `./ensg2hugo.py -f2 expres.anal.csv >expres.anal.hugo.csv`  
-8. There will print a file called "expres.anal.hugo.csv" in the Assignment5 directory, which the Ensembl gene name has become a HUGO name.  
+`chmod 755 ensg2hugo.py`  
+Now, I can test this program by the unit test file. `./ensg2hugo.py -f2 expres.anal.csv >expres.anal.hugo.csv`  
+There will print a file called "expres.anal.hugo.csv" in the Assignment5 directory, which the Ensembl gene name has become a HUGO name.  
 ***
 :blush:Users can install this program by using **`git clone`**  
 The command to run this program should like **`./ensg2hugo.py -f[0-9] Your_file.csv >Your_file.hugo.csv`**  
 **Notably, users allow an option “-f [0-9]” where -f2 would pick the 2nd column where should be the gene_id. If there is no “-f” then the program will default the first column as the gene_id column.**    
 Now, users can print the target file successfully!
-
